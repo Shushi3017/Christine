@@ -4,434 +4,218 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Christine's Love Story</title>
+    <title>Our Special Space</title>
     <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Inter:wght@300;400;600&display=swap');
-
-        :root {
-            --bg-color: #0a0a0a;
-            --accent-color: #fb7185;
-            /* Pink-400 equivalent */
-        }
-
-        /* Audio Button Styling */
-        .audio-control {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 100;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            padding: 12px;
-            border-radius: 50%;
-            cursor: pointer;
-            color: white;
-            transition: all 0.3s ease;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .audio-control:hover {
-            background: rgba(255, 255, 255, 0.2);
-            transform: scale(1.1);
-        }
-
-        .audio-control.is-playing {
-            border-color: var(--accent-color);
-            box-shadow: 0 0 15px rgba(251, 113, 133, 0.3);
-        }
-
-        html {
-            scroll-behavior: smooth;
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
 
         body {
             font-family: 'Inter', sans-serif;
-            background-color: var(--bg-color);
-            color: #fff5f5;
             overflow-x: hidden;
-            margin: 0;
         }
 
-        .font-romantic {
-            font-family: 'Dancing Script', cursive;
-        }
-
-        .scroll-section {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            padding: 2rem;
+        .heart-bg {
+            background-color: #fff1f2;
             position: relative;
-            text-align: center;
         }
 
-        .scroll-fade {
-            opacity: 0;
-            transform: translateY(20px);
-            transition: opacity 1s ease, transform 1s ease;
+        .blur-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
         }
 
-        .scroll-fade.active {
-            opacity: 1;
-            transform: translateY(0);
+        .heart-icon {
+            fill: currentColor;
         }
 
-        #surname {
-            display: inline-block;
-            transition: opacity 0.8s ease, transform 0.8s ease, filter 0.8s ease;
+        .login-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #ffe4e6;
         }
 
-        .surname-out {
-            opacity: 0;
-            transform: scale(0.9);
-            filter: blur(10px);
-        }
+        /* Custom Heart Animation */
+        @keyframes floating {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
 
-        .heart-particle {
-            position: absolute;
-            color: rgba(255, 77, 109, 0.2);
-            animation: float-up var(--d) linear infinite;
-            bottom: -20px;
-        }
+            50% {
+                transform: translateY(-10px) scale(1.05);
+            }
 
-        @keyframes float-up {
-            to {
-                transform: translateY(-110vh) rotate(360deg);
+            100% {
+                transform: translateY(0px) scale(1);
             }
         }
 
-        .bg-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(circle at 50% 50%, #1a0509 0%, #0a0a0a 100%);
-            z-index: -1;
+        .animate-float {
+            animation: floating 3s ease-in-out infinite;
         }
 
-        .message-card {
-            background: rgba(255, 255, 255, 0.03);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 24px;
-            position: relative;
-            z-index: 10;
-            max-width: 800px;
-            padding: 3rem;
-        }
-
-        /* Interactive Letter-Picture Styling */
-        .memory-container {
-            height: 150vh;
-            position: relative;
-            width: 100%;
-        }
-
-        .memory-sticky {
-            position: sticky;
-            top: 0;
-            height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-
-        .picture-frame {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-            transition: all 0.1s linear;
-            overflow: hidden;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(0, 0, 0, 0.2);
-        }
-
-        .picture-frame img {
-            width: 100%;
-            height: 100%;
-            object-fit: contain;
-            position: absolute;
-            inset: 0;
-            padding: 20px;
-        }
-
-        .letter-content {
-            position: relative;
-            z-index: 20;
-            padding: 2rem;
-            max-width: 500px;
-            background: rgba(10, 10, 10, 0.85);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(255, 77, 109, 0.4);
-            border-radius: 20px;
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
-            margin: 0 20px;
-        }
-
-        .letter-active .letter-content {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
-        .custom-scrollbar::-webkit-scrollbar {
-            width: 5px;
-        }
-
-        .custom-scrollbar::-webkit-scrollbar-thumb {
-            background: rgba(255, 77, 109, 0.3);
-            border-radius: 10px;
-        }
-
-        #confirmationModal {
+        .hidden-element {
             display: none;
-            position: fixed;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.9);
-            z-index: 200;
-            justify-content: center;
-            align-items: center;
         }
     </style>
 </head>
 
-<body>
-    <!-- Audio Element -->
-    <audio id="bg-audio" loop preload="auto">
-        <source src="./assets/img/El Manu - Tahanan (Lyrics) (online-video-cutter.com).mp4" type="audio/mpeg">
-    </audio>
+<body class="heart-bg min-h-screen flex items-center justify-center p-4">
 
-    <div class="bg-overlay"></div>
+    <!-- Decorative Circles -->
+    <div class="blur-circle w-64 h-64 bg-rose-300 top-10 left-10"></div>
+    <div class="blur-circle w-80 h-80 bg-pink-200 bottom-10 right-10"></div>
 
-    <!-- Fixed Audio Toggle -->
-    <button class="audio-control" id="audio-toggle" title="Toggle Audio">
-        <svg id="audio-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
-            <line x1="23" y1="9" x2="17" y2="15"></line>
-            <line x1="17" y1="9" x2="23" y2="15"></line>
-        </svg>
-    </button>
-
-    <section id="home" class="scroll-section">
-        <div class="scroll-fade">
-            <h1 class="text-6xl md:text-8xl font-romantic text-white drop-shadow-[0_0_20px_rgba(255,77,109,0.5)]">
-                Christine Kyla<br>
-                <span id="surname" class="text-pink-500">Casingal</span>
-            </h1>
-            <p class="text-slate-500 mt-8 tracking-[0.5em] text-xs uppercase animate-pulse">Scroll down for more!</p>
-        </div>
-    </section>
-
-    <!-- MAIN MESSAGE -->
-    <section id="message" class="scroll-section overflow-hidden">
-        <div id="heart-container" class="absolute inset-0 pointer-events-none"></div>
-        <div class="message-card scroll-fade">
-            <h2 class="text-4xl font-romantic text-pink-400 mb-6 text-center">Hi bebe ko...</h2>
+    <div id="login-container" class="w-full max-w-md z-10 animate__animated animate__fadeIn">
+        <!-- Logo Section -->
+        <div class="text-center mb-8">
             <div
-                class="text-base md:text-lg text-slate-200 italic font-light leading-relaxed text-left max-h-[60vh] overflow-y-auto pr-4 custom-scrollbar">
-                <p class="mb-4">
-                    Hi bebe ko sorry kung di kita nabati agad nung 9 monthsarry agad last month ah kasi naka focus
-                    nanaman ako sa ibang bagay maling mali yun alam ko po na mali po sana bebe ko wag mo kong iwanan at
-                    alam kong di mo gagawin at kahit anong mangyari sa kondisyon mo bebe ko mahal na mahal kita never
-                    kitang pababayaan kung anong merong sakit man yan bebe ko okay lang po tanggap kita sino pava ang
-                    mag tutulongan dito lang ako palagi para sayo never kitang bibitawan kahit minsan nag aaway tyo
-                    palagi mong pag kakatandaan na never kitang aalisan at pababayaan na mag isa tandaan mo aayohin din
-                    ang panahon satin wait ka lang ah sana bi pag naka graduate ako wala nang pipigil satin at sana
-                    kahit na anong mangyari ako padin ang piliin mo haggang dulo de baling wala kang mabigay basta sabi
-                    ko sayo pag mamahal at pag ibig mo lang sapat na di ko inaakala na mag kakaroon ako nang jowang
-                    maganda super at super bait at super talino pa never kitang pababayaan sana kapag ka dumating yung
-                    araw na kinasal tyo wala nang gugulo at bebe ko pangarap ko po para sating dalawa mabuhay nang
-                    masaya at mabuhay nang mag kasama at kahir mag kasama na tyo sana bebe ko alagaan natin yung isat
-                    isa tandaan mo pag maf kasana tyong dalawa aalagaan kita kung pano ko pinalaki at pano sakin
-                    pinaramdam nila mama papa yung pag mamahal ganon ko din ipaparamdam sayo pero di ako mag hihigpit
-                    alam mo na sa sarili mo yung dapat at yung tama na gawin at tandaan mo mag kalayo man tyo or nasan
-                    ka man mahal kita basta sa cavite ka lang please wag kana umalis kaya umaayaw si ate mo dahil tingin
-                    ko ni rerespeto nya yung love natin at alam ko naman na di ka papayag na aalis ka nang cav sana da
-                    cav ka haggang dulo haggang maka graduate ka bebe ko sana sana wag kang umalis ah dito ka lang
-                    please ah i loveyou always happy 11 monthsarry wag mong isiping panaginip to isipin mong pangarap
-                    lahat to nang mga isang babaeng katulad mo tandaan nandito ako para tabihan ka at gabayan ka palagi
-                    i loveyou moree happy 11 bi isang buwan nalang alam mo na dito lang aki ah i loveyou mwa mwa and Sa
-                    manila kana mag tapos para pag sinaba nila na anak ko naka pag tapos manila maganda pag kumausap ka
-                    ng ibang tao maganda yung background try to explain to your mother bi para pag dating ng panahon nag
-                    bidahan napag tapos ko naman anak ko sa maynila STI ibang tao thinking pag manila talaga.
-                </p>
-                <p class="mb-4">
-                    Lahat ng ito ay matagal ko ng nasulat pero dinagdagan ko nalang ah.
-                </p>
-                <p>
-                    Then please sa cav ka nalang mag stay at mag tapos para after that live in na and tuloy tuloy na
-                    buhay natin with together sana kapag tumagal tyo tuloy tuloy padin yung pag mamahal at pag aalaga mo
-                    sakin at di mo ko iwanan dito lang ako palagi para sayo handang maging provider mo mag susumikat ako
-                    para sayo.
-                </p>
+                class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-rose-500 text-white shadow-lg shadow-rose-200 mb-4 animate-float">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
             </div>
-            <p class="mt-8 text-pink-500 font-romantic text-right">- Always yours</p>
+            <h1 class="text-3xl font-bold italic text-slate-900">Our Special Space</h1>
+            <p id="sub-header" class="text-slate-500 mt-2 font-medium">Welcome back, christine17!</p>
         </div>
-    </section>
 
-    <!-- MEMORIES -->
-    <div class="memory-container" id="memory1">
-        <div class="memory-sticky">
-            <div class="picture-frame" id="frame1">
-                <img src="https://picsum.photos/id/10/800/1200" alt="Memory 1">
-                <div class="letter-content text-center">
-                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Unang Pagkikita</h3>
-                    <p class="text-slate-300 text-sm md:text-base italic">eto? Eto yung unang-unang pag kikita natin di
-                        ko nga alam gagawin ko nyan kasi ang thinking ko agad na parang jowa na kita grabe yung hawak mo
-                        dyan di ko alam gaagwin kasi first time ko maka meet ng ganyan...</p>
+        <!-- Form Card -->
+        <div class="login-card rounded-3xl shadow-2xl p-8">
+            <form action="./index.html" id="login-form" class="space-y-5">
+                <!-- Username Field -->
+                <div class="space-y-1.5">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Username</label>
+                    <div class="relative group">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <input type="text" id="username" value="christine17" disabled
+                            class="block w-full pl-11 pr-4 py-3 bg-slate-100/50 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed outline-none transition-all">
+                    </div>
                 </div>
-            </div>
+
+                <!-- Password Field -->
+                <div class="space-y-1.5">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Password</label>
+                    <div class="relative">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <input type="password" id="password" autofocus placeholder="Date: MM/DD/YYYY"
+                            class="block w-full pl-11 pr-11 py-3 bg-white/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-100 focus:border-rose-400 outline-none transition-all">
+                        <button type="button" onclick="togglePassword()"
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-rose-600 transition-colors">
+                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="error-message"
+                        class="text-xs text-rose-500 hidden-element mt-1 ml-1 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" x2="12" y1="8" y2="12" />
+                            <line x1="12" x2="12.01" y1="16" y2="16" />
+                        </svg>
+                        <span id="error-text">Incorrect password</span>
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn"
+                    class="w-full flex items-center justify-center px-4 py-3.5 bg-rose-500 text-white font-bold rounded-xl hover:bg-rose-600 shadow-lg shadow-rose-100 focus:ring-4 focus:ring-rose-50 transition-all group">
+                    <span id="btn-text" class="mr-2">Enter Our World</span>
+                    <svg class="w-4 h-4 group-hover:scale-125 transition-transform" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center mt-12">
+            <span class="text-rose-300 text-2xl animate-pulse">♥♥♥</span>
         </div>
     </div>
 
-    <div class="memory-container" id="memory2">
-        <div class="memory-sticky">
-            <div class="picture-frame" id="frame2">
-                <img src="https://picsum.photos/id/20/800/1200" alt="Memory 2">
-                <div class="letter-content text-center">
-                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Bawat Sandali</h3>
-                    <p class="text-slate-300 text-sm md:text-base italic">eto yung masarap sa feeling kasi kahit anong
-                        mangyari meron padin time para sakin ganon di ka nag loloko nag stick ka padin sa ugali ko at
-                        mahal na mahal mo ko...</p>
-                </div>
-            </div>
+    <!-- Success Screen -->
+    <div id="success-screen" class="hidden-element text-center animate__animated animate__zoomIn">
+        <div
+            class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-rose-500 text-white shadow-xl mb-6 animate-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+            </svg>
         </div>
+        <h2 class="text-3xl font-bold text-slate-900 mb-2">Welcome Home, Christine</h2>
+        <p class="text-slate-500 text-lg">Your special space is ready to be explored!</p>
+        <a  href="./index.html"
+            class="inline-block mt-6 px-6 py-3 bg-rose-500 text-white font-semibold rounded-xl hover:bg-rose-600 shadow-lg shadow-rose-100 transition-all">
+            Enter Now
+            </a>
     </div>
-
-    <!-- FINAL PROPOSAL SECTION -->
-    <section id="moments" class="scroll-section">
-        <div class="max-w-4xl scroll-fade text-center relative w-full h-full flex flex-col items-center justify-center">
-            <h2 class="text-5xl md:text-7xl font-romantic mb-12 text-pink-300">Can you be my lifetime wife?</h2>
-            <div id="btn-container"
-                class="relative flex flex-wrap justify-center items-center gap-8 min-h-[300px] w-full">
-                <button id="yesBtn" onclick="handleYesClick()"
-                    class="bg-pink-600 text-white px-12 py-4 rounded-full font-bold text-xl shadow-lg transition-transform z-50 min-w-[140px]">Yes</button>
-                <button id="noBtn" onmouseover="handleNoMove()" onclick="handleNoMove()"
-                    class="bg-slate-800 text-slate-400 px-10 py-4 rounded-full font-bold text-xl transition-all z-40">No</button>
-            </div>
-        </div>
-    </section>
 
     <script>
-        // Audio Toggle Logic
-        const audio = document.getElementById('bg-audio');
-        const audioBtn = document.getElementById('audio-toggle');
-        const audioIcon = document.getElementById('audio-icon');
-        let isPlaying = false;
+        const VALID_PASS = "02/17/2026";
 
-        function toggleAudio() {
-            if (isPlaying) {
-                audio.pause();
-                audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line>';
-                audioBtn.classList.remove('is-playing');
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const icon = document.getElementById('eye-icon');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>';
             } else {
-                audio.play().catch(e => console.log("Audio play failed:", e));
-                audioIcon.innerHTML = '<polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14"></path><path d="M15.54 8.46a5 5 0 0 1 0 7.07"></path>';
-                audioBtn.classList.add('is-playing');
+                pwd.type = 'password';
+                icon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
             }
-            isPlaying = !isPlaying;
         }
 
-        audioBtn.addEventListener('click', toggleAudio);
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const errMsg = document.getElementById('error-message');
 
-        // Auto-play attempt on first interaction
-        const startAudioOnce = () => {
-            if (!isPlaying) toggleAudio();
-            window.removeEventListener('click', startAudioOnce);
-            window.removeEventListener('scroll', startAudioOnce);
-            window.removeEventListener('touchstart', startAudioOnce);
-        };
-        window.addEventListener('click', startAudioOnce);
-        window.addEventListener('scroll', startAudioOnce);
-        window.addEventListener('touchstart', startAudioOnce);
+            errMsg.classList.add('hidden-element');
 
-        // Name Swap logic
-        const names = ["Casingal", "Aking Bukas", "Aking Lahat", "Aking Tahanan"];
-        let nIdx = 0;
-        setInterval(() => {
-            const el = document.getElementById('surname');
-            if (el) {
-                el.classList.add('surname-out');
-                setTimeout(() => {
-                    nIdx = (nIdx + 1) % names.length;
-                    el.innerText = names[nIdx];
-                    el.classList.remove('surname-out');
-                }, 800);
+            if (pass !== VALID_PASS) {
+                errMsg.classList.remove('hidden-element');
+                return;
             }
-        }, 5000);
 
-        // Scroll Observers
-        const obs = new IntersectionObserver((es) => {
-            es.forEach(e => { if (e.isIntersecting) e.target.classList.add('active'); });
-        }, { threshold: 0.1 });
-        document.querySelectorAll('.scroll-fade').forEach(el => obs.observe(el));
+            // Loading state
+            btn.disabled = true;
+            btnText.innerText = "Verifying...";
 
-        // Memory Interaction
-        window.addEventListener('scroll', () => {
-            const containers = document.querySelectorAll('.memory-container');
-            containers.forEach((container) => {
-                const frame = container.querySelector('.picture-frame');
-                const rect = container.getBoundingClientRect();
-                const scrollPercent = Math.max(0, Math.min(1, -rect.top / (rect.height - window.innerHeight)));
-
-                if (rect.top <= 0 && rect.bottom >= 0) {
-                    const width = 100 - (scrollPercent * 30);
-                    frame.style.width = width + 'vw';
-                    frame.style.height = (100 - (scrollPercent * 40)) + 'vh';
-                    frame.style.borderRadius = (scrollPercent * 40) + 'px';
-
-                    if (scrollPercent > 0.6) frame.classList.add('letter-active');
-                    else frame.classList.remove('letter-active');
-                }
-            });
+            setTimeout(() => {
+                document.getElementById('login-container').classList.add('hidden-element');
+                document.getElementById('success-screen').classList.remove('hidden-element');
+            }, 1200);
         });
-
-        // Proposal Logic
-        let noMoves = 0;
-        const noBtn = document.getElementById('noBtn');
-        const yesBtn = document.getElementById('yesBtn');
-
-        function handleNoMove() {
-            noMoves++;
-            const x = Math.random() * 300 - 150;
-            const y = Math.random() * 300 - 150;
-            noBtn.style.position = 'absolute';
-            noBtn.style.transform = `translate(${x}px, ${y}px)`;
-
-            if (noMoves >= 3) {
-                const currentScale = 1 + (noMoves * 0.15);
-                yesBtn.style.transform = `scale(${currentScale})`;
-                yesBtn.style.boxShadow = `0 0 ${noMoves * 10}px rgba(219, 39, 119, 0.6)`;
-            }
-        }
-
-        function handleYesClick() {
-            // Add your redirect or modal logic here
-            alert("I love you forever! ❤️");
-        }
-
-        // Global Hearts
-        setInterval(() => {
-            const h = document.createElement('div');
-            h.innerHTML = '♥';
-            h.className = 'heart-particle pointer-events-none';
-            h.style.left = Math.random() * 100 + '%';
-            h.style.setProperty('--d', (Math.random() * 8 + 4) + 's');
-            document.body.appendChild(h);
-            setTimeout(() => h.remove(), 10000);
-        }, 1500);
     </script>
 </body>
 
