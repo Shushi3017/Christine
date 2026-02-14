@@ -218,7 +218,7 @@
 
     <!-- Audio Element -->
     <audio id="bg-audio" loop preload="auto">
-        <source src="./assets/img/El Manu - Tahanan (Lyrics) (online-video-cutter.com).mp4" type="audio/mpeg">
+        <source src="../assets/img/El Manu - Tahanan (Lyrics) (online-video-cutter.com).mp4" type="audio/mpeg">
     </audio>
 
     <button class="audio-control" id="audio-toggle" title="Toggle Audio">
@@ -287,7 +287,7 @@
     <div class="memory-container" id="memory1">
         <div class="memory-sticky">
             <div class="picture-frame" id="frame1">
-                <img src="./assets/img/unang una.jpg" alt="Memory 1">
+                <img src="../assets/img/unang una.jpg" alt="Memory 1">
                 <div class="letter-content text-center">
                     <h3 class="font-romantic text-3xl text-pink-400 mb-4">Unang Pagkikita</h3>
                     <p class="text-slate-300 text-sm md:text-base italic">eto? Eto yung unang-unang pag kikita natin di
@@ -302,12 +302,66 @@
     <div class="memory-container" id="memory2">
         <div class="memory-sticky">
             <div class="picture-frame" id="frame2">
-                <img src="./assets/img/03 10 2025.jpg" alt="Memory 2">
+                <img src="../assets/img/03 10 2025.jpg" alt="Memory 2">
                 <div class="letter-content text-center">
                     <h3 class="font-romantic text-3xl text-pink-400 mb-4">Bawat Sandali</h3>
                     <p class="text-slate-300 text-sm md:text-base italic">eto yung masarap sa feeling kasi kahit anong
                         mangyari meron padin time para sakin ganon di ka nag loloko nag stick ka padin sa ugali ko at
                         mahal na mahal mo ko...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="memory-container" id="memory3">
+        <div class="memory-sticky">
+            <div class="picture-frame" id="frame3">
+                <img src="../assets/img/first.jpg" alt="Memory 3">
+                <div class="letter-content text-center">
+                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Pangako Sa Iyo</h3>
+                    <p class="text-slate-300 text-sm md:text-base italic"> eto yung nag buy ako ng ring for us kasi nakita ko yung sa tiktok yung sinabi mo dun sa repost na kung sino man ang lalaking mag bigay ng singsing sakin sya ang papakasalan ko at ginawa ko siya kasi gusto ko akin ka at higit sa lahat ayaw ko nang mawala kapa...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Memory 4 -->
+    <div class="memory-container" id="memory4">
+        <div class="memory-sticky">
+            <div class="picture-frame" id="frame4">
+                <img src="../assets/img/2025,07,29.jpg" alt="Memory 4">
+                <div class="letter-content text-center">
+                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Cute</h3>
+                    <p class="text-slate-300 text-sm md:text-base italic">Eto yung natunan ko na kung pano manamit ng maayos at pano maging tama palagi iba ang saya ko kapag ka nandyan ka sa tabi ko at iba ang pakiramdam ko kapag ka nandyan ka at mas lalong lalo na nawawala lahat ng mga bagay na dapat isipin pag nandyan kana para kang santo na nawawala bigla yung mga problema na nandyan sa akin... </p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Memory 5 -->
+    <div class="memory-container" id="memory5">
+        <div class="memory-sticky">
+            <div class="picture-frame" id="frame5">
+                <img src="../assets/img/2025,11,03.jpg" alt="Memory 5">
+                <div class="letter-content text-center">
+                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Ikaw lang</h3>
+                    <p class="text-slate-300 text-sm md:text-base italic">Dito nasubukan natin yung pag mamahalan natin
+                        talagang nag tiisan tyo pero alam mo sa totoo lang sobrang na mimiss kita palagi non nung
+                        nandito sila mama...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Memory 6 (Example from screenshot style) -->
+    <div class="memory-container" id="memory6">
+        <div class="memory-sticky">
+            <div class="picture-frame" id="frame6">
+                <!-- This uses a placeholder but imagine your photobooth strip here -->
+                <img src="../assets/img/bebe pic.jpg" alt="Memory 6">
+                <div class="letter-content text-center">
+                    <h3 class="font-romantic text-3xl text-pink-400 mb-4">Tunay na Pag-ibig</h3>
+                    <p class="text-slate-300 text-sm md:text-base italic">"Salamat sa pagtanggap sa akin nang buong-buo.
+                        Mahal na mahal kita, bi."</p>
                 </div>
             </div>
         </div>
@@ -362,7 +416,7 @@
         audioBtn.addEventListener('click', toggleAudio);
 
         // Name Swap logic
-        const names = ["Casingal", "Aking Bukas", "Aking Lahat", "Aking Tahanan"];
+        const names = ["Casingal", "Maganda", "Your best girl and you deserve flowers", "Aking Tahanan", "Forever and Always", "My Everything", "The One I Love", "My Heart's Desire"];
         let nIdx = 0;
         setInterval(() => {
             const el = document.getElementById('surname');
@@ -372,7 +426,7 @@
                     nIdx = (nIdx + 1) % names.length;
                     el.innerText = names[nIdx];
                     el.classList.remove('surname-out');
-                }, 800);
+                }, 500);
             }
         }, 5000);
 
