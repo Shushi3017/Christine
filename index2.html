@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Special Space</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" rel="stylesheet">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
+        body {
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+        }
+
+        .heart-bg {
+            background-color: #fff1f2;
+            position: relative;
+        }
+
+        .blur-circle {
+            position: fixed;
+            border-radius: 50%;
+            filter: blur(80px);
+            z-index: 0;
+            opacity: 0.4;
+        }
+
+        .heart-icon {
+            fill: currentColor;
+        }
+
+        .login-card {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(12px);
+            border: 1px solid #ffe4e6;
+        }
+
+        /* Custom Heart Animation */
+        @keyframes floating {
+            0% {
+                transform: translateY(0px) scale(1);
+            }
+
+            50% {
+                transform: translateY(-10px) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(0px) scale(1);
+            }
+        }
+
+        .animate-float {
+            animation: floating 3s ease-in-out infinite;
+        }
+
+        .hidden-element {
+            display: none;
+        }
+    </style>
+</head>
+
+<body class="heart-bg min-h-screen flex items-center justify-center p-4">
+
+    <!-- Decorative Circles -->
+    <div class="blur-circle w-64 h-64 bg-rose-300 top-10 left-10"></div>
+    <div class="blur-circle w-80 h-80 bg-pink-200 bottom-10 right-10"></div>
+
+    <div id="login-container" class="w-full max-w-md z-10 animate__animated animate__fadeIn">
+        <!-- Logo Section -->
+        <div class="text-center mb-8">
+            <div
+                class="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-rose-500 text-white shadow-lg shadow-rose-200 mb-4 animate-float">
+                <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24" fill="currentColor"
+                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path
+                        d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                </svg>
+            </div>
+            <h1 class="text-3xl font-bold italic text-slate-900">Our Special Space</h1>
+            <p id="sub-header" class="text-slate-500 mt-2 font-medium">Welcome back, christine17!</p>
+        </div>
+
+        <!-- Form Card -->
+        <div class="login-card rounded-3xl shadow-2xl p-8">
+            <form action="./index.html" id="login-form" class="space-y-5">
+                <!-- Username Field -->
+                <div class="space-y-1.5">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Username</label>
+                    <div class="relative group">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
+                                <circle cx="12" cy="7" r="4" />
+                            </svg>
+                        </div>
+                        <input type="text" id="username" value="christine17" disabled
+                            class="block w-full pl-11 pr-4 py-3 bg-slate-100/50 border border-slate-200 rounded-xl text-slate-500 cursor-not-allowed outline-none transition-all">
+                    </div>
+                </div>
+
+                <!-- Password Field -->
+                <div class="space-y-1.5">
+                    <label class="text-sm font-semibold text-slate-700 ml-1">Password</label>
+                    <div class="relative">
+                        <div
+                            class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none text-slate-400">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <rect width="18" height="11" x="3" y="11" rx="2" ry="2" />
+                                <path d="M7 11V7a5 5 0 0 1 10 0v4" />
+                            </svg>
+                        </div>
+                        <input type="password" id="password" autofocus placeholder="Date: MM/DD/YYYY"
+                            class="block w-full pl-11 pr-11 py-3 bg-white/50 border border-slate-200 rounded-xl focus:ring-2 focus:ring-rose-100 focus:border-rose-400 outline-none transition-all">
+                        <button type="button" onclick="togglePassword()"
+                            class="absolute inset-y-0 right-0 pr-3.5 flex items-center text-slate-400 hover:text-rose-600 transition-colors">
+                            <svg id="eye-icon" xmlns="http://www.w3.org/2000/svg" width="20" height="20"
+                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
+                                stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+                                <circle cx="12" cy="12" r="3" />
+                            </svg>
+                        </button>
+                    </div>
+                    <p id="error-message"
+                        class="text-xs text-rose-500 hidden-element mt-1 ml-1 flex items-center gap-1">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10" />
+                            <line x1="12" x2="12" y1="8" y2="12" />
+                            <line x1="12" x2="12.01" y1="16" y2="16" />
+                        </svg>
+                        <span id="error-text">Incorrect password</span>
+                    </p>
+                </div>
+
+                <!-- Submit Button -->
+                <button type="submit" id="submit-btn"
+                    class="w-full flex items-center justify-center px-4 py-3.5 bg-rose-500 text-white font-bold rounded-xl hover:bg-rose-600 shadow-lg shadow-rose-100 focus:ring-4 focus:ring-rose-50 transition-all group">
+                    <span id="btn-text" class="mr-2">Enter Our World</span>
+                    <svg class="w-4 h-4 group-hover:scale-125 transition-transform" xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+                    </svg>
+                </button>
+            </form>
+        </div>
+
+        <div class="text-center mt-12">
+            <span class="text-rose-300 text-2xl animate-pulse">♥♥♥</span>
+        </div>
+    </div>
+
+    <!-- Success Screen -->
+    <div id="success-screen" class="hidden-element text-center animate__animated animate__zoomIn">
+        <div
+            class="inline-flex items-center justify-center w-24 h-24 rounded-full bg-rose-500 text-white shadow-xl mb-6 animate-float">
+            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48" viewBox="0 0 24 24" fill="currentColor"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path
+                    d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z" />
+            </svg>
+        </div>
+        <h2 class="text-3xl font-bold text-slate-900 mb-2">Welcome Home, Christine</h2>
+        <p class="text-slate-500 text-lg">Your special space is ready to be explored!</p>
+        <a  href="./index.html"
+            class="inline-block mt-6 px-6 py-3 bg-rose-500 text-white font-semibold rounded-xl hover:bg-rose-600 shadow-lg shadow-rose-100 transition-all">
+            Enter Now
+            </a>
+    </div>
+
+    <script>
+        const VALID_PASS = "02/17/2026";
+
+        function togglePassword() {
+            const pwd = document.getElementById('password');
+            const icon = document.getElementById('eye-icon');
+            if (pwd.type === 'password') {
+                pwd.type = 'text';
+                icon.innerHTML = '<path d="M9.88 9.88a3 3 0 1 0 4.24 4.24"/><path d="M10.73 5.08A10.43 10.43 0 0 1 12 5c7 0 10 7 10 7a13.16 13.16 0 0 1-1.67 2.68"/><path d="M6.61 6.61A13.52 13.52 0 0 0 2 12s3 7 10 7a9.74 9.74 0 0 0 5.39-1.61"/><line x1="2" x2="22" y1="2" y2="22"/>';
+            } else {
+                pwd.type = 'password';
+                icon.innerHTML = '<path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"/><circle cx="12" cy="12" r="3"/>';
+            }
+        }
+
+        document.getElementById('login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            const pass = document.getElementById('password').value;
+            const btn = document.getElementById('submit-btn');
+            const btnText = document.getElementById('btn-text');
+            const errMsg = document.getElementById('error-message');
+
+            errMsg.classList.add('hidden-element');
+
+            if (pass !== VALID_PASS) {
+                errMsg.classList.remove('hidden-element');
+                return;
+            }
+
+            // Loading state
+            btn.disabled = true;
+            btnText.innerText = "Verifying...";
+
+            setTimeout(() => {
+                document.getElementById('login-container').classList.add('hidden-element');
+                document.getElementById('success-screen').classList.remove('hidden-element');
+            }, 1200);
+        });
+    </script>
+</body>
+
+</html>
