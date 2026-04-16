@@ -20,7 +20,7 @@ window.addEventListener('scroll', playMusic);
 window.addEventListener('touchstart', playMusic);
 ///login page script
 
-  const VALID_PASS = "02/17/2026";
+  const VALID_PASS = "02/17/2026-ended";
 
         function togglePassword() {
             const pwd = document.getElementById('password');
